@@ -1,7 +1,7 @@
-setwd("/Users/Helena/Documents/BCS 1ST YEAR/DSCI 100/Group Project/breast_cancer_proteome")
+setwd("/DSCI_100_Breast_Cancer_Classification")
 
-install.packages("/Users/Helena/Downloads/unpivotr_0.6.3.tar.gz", repos = NULL, type = "source")
-install.packages("/Users/Helena/Downloads/janitor_2.2.0.tar.gz", repos = NULL, type = "source")
+install.packages("stringr")
+install.packages("janitor")
 
 library("tidyverse")
 library("stringr")
@@ -9,9 +9,9 @@ library("janitor")
 
 
 # reading the proteome and clinical data CSVs, cleaning column names
-proteome_data <- read_csv("77_cancer_proteomes_CPTAC_itraq.csv")
+proteome_data <- read_csv("Original Datasets/77_cancer_proteomes_CPTAC_itraq.csv")
 
-clinical_data <- read_csv("clinical_data_breast_cancer.csv") 
+clinical_data <- read_csv("Original Datasets/clinical_data_breast_cancer.csv") 
 clinical_data <- clean_names(clinical_data)
 
 
@@ -35,4 +35,5 @@ proteome_and_clinical_data_tidy <- merge(proteome_data_longer_tidy, clinical_dat
 donors_and_genes_per_donor <- proteome_and_clinical_data_tidy %>% group_by(tcga_id) %>% count()
 # 77 donors (tcga_id) and 12,553 genes (n) per donor
 
+# write CSV of tidied data
 write.csv(proteome_and_clinical_data_tidy, "proteome_and_clinical_data_tidy.csv")
